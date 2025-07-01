@@ -1,6 +1,6 @@
-
 body {
+  font-family: Arial, sans-serif;
   margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #f0fdf4;
+  padding: 0;
+  background-color: #f3f4f6;
 }
