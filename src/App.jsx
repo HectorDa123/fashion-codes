@@ -111,7 +111,7 @@ export default function StyleSelector() {
           {styles.map((style) => (
             <button
               key={style}
-              className={\`px-3 py-1 rounded-full border shadow-sm transition \${selectedStyles.includes(style) ? "bg-green-500 text-white" : "bg-gray-100 hover:bg-green-100"}\`}
+              className={`px-3 py-1 rounded-full border shadow-sm transition ${selectedStyles.includes(style) ? "bg-green-500 text-white" : "bg-gray-100 hover:bg-green-100"}`}
               onClick={() => toggleStyle(style)}
             >
               {style}
