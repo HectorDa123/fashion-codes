@@ -20,7 +20,7 @@ const styles = [
 ];
 
 export default function StyleSelector() {
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState("intro");
   const [formData, setFormData] = useState({
     nombre: "",
     edad: "",
@@ -63,7 +63,7 @@ export default function StyleSelector() {
     );
   };
 
-  if (step === 0) {
+  if (step === "intro") {
     return (
       <div className="p-4 text-center">
         <img
@@ -73,14 +73,12 @@ export default function StyleSelector() {
         />
         <h1 className="text-3xl font-bold mb-6">👗 Fashion Codes</h1>
         <p className="text-gray-600 mb-4">Explora tu estilo, salva el planeta 🌍</p>
-        <button className="bg-green-600 text-white px-6 py-3 rounded-full text-lg" onClick={() => setStep(1)}>
-          Comenzar
-        </button>
+        <button className="bg-green-600 text-white px-6 py-3 rounded-full text-lg" onClick={() => setStep("form")}>Comenzar</button>
       </div>
     );
   }
 
-  if (step === 1) {
+  if (step === "form") {
     return (
       <div className="p-4 space-y-4">
         <h2 className="text-lg font-semibold mb-2">👤 Información personal</h2>
@@ -89,12 +87,26 @@ export default function StyleSelector() {
         <input type="number" name="edad" placeholder="Edad" className="w-full border p-2 rounded" onChange={handleInputChange} />
         <input type="text" name="ubicacion" placeholder="Ubicación" className="w-full border p-2 rounded" onChange={handleInputChange} />
         <input type="text" name="altura" placeholder="Altura (cm)" className="w-full border p-2 rounded" onChange={handleInputChange} />
-        <button className="bg-green-500 text-white px-4 py-2 rounded mt-2" onClick={() => setStep(2)}>Siguiente</button>
+        <button className="bg-green-500 text-white px-4 py-2 rounded mt-2" onClick={() => setStep("menu")}>Ir al menú</button>
       </div>
     );
   }
 
-  if (step === 2) {
+  const Menu = () => (
+    <div className="p-4 space-y-4">
+      <h2 className="text-lg font-semibold">🏠 Menú principal</h2>
+      <div className="flex flex-col gap-4">
+        <button className="bg-blue-500 text-white px-4 py-2 rounded" onClick={() => setStep("styles")}>Elegir estilos</button>
+        <button className="bg-blue-500 text-white px-4 py-2 rounded" onClick={() => setStep("wardrobe")}>Ver armario</button>
+        <button className="bg-blue-500 text-white px-4 py-2 rounded" onClick={() => setStep("profile")}>Ver perfil</button>
+        <button className="bg-blue-500 text-white px-4 py-2 rounded" onClick={() => setStep("tips")}>Tips ecológicos</button>
+      </div>
+    </div>
+  );
+
+  if (step === "menu") return <Menu />;
+
+  if (step === "styles") {
     return (
       <div className="p-4">
         <h2 className="text-lg font-semibold mb-2">🎨 Elige tus estilos favoritos (máx 5):</h2>
@@ -113,12 +125,12 @@ export default function StyleSelector() {
             </button>
           ))}
         </div>
-        <button className="bg-blue-500 text-white px-4 py-2 rounded" onClick={() => setStep(3)}>Siguiente</button>
+        <button className="bg-gray-400 text-white px-4 py-2 rounded" onClick={() => setStep("menu")}>Volver al menú</button>
       </div>
     );
   }
 
-  if (step === 3) {
+  if (step === "wardrobe") {
     return (
       <div className="p-4">
         <h2 className="text-lg font-semibold mb-4">👚 Tu armario</h2>
@@ -132,12 +144,12 @@ export default function StyleSelector() {
             </div>
           ))}
         </div>
-        <button className="bg-blue-500 text-white px-4 py-2 rounded mt-4" onClick={() => setStep(4)}>Ir a perfil</button>
+        <button className="bg-gray-400 text-white px-4 py-2 rounded mt-4" onClick={() => setStep("menu")}>Volver al menú</button>
       </div>
     );
   }
 
-  if (step === 4) {
+  if (step === "profile") {
     return (
       <div className="p-4">
         <h2 className="text-lg font-semibold mb-4">👤 Perfil</h2>
@@ -150,12 +162,12 @@ export default function StyleSelector() {
           <li><strong>Estilos favoritos:</strong> {selectedStyles.join(", ")}</li>
           <li><strong>Prendas registradas:</strong> {wardrobe.length}</li>
         </ul>
-        <button className="bg-blue-500 text-white px-4 py-2 rounded mt-4" onClick={() => setStep(5)}>Ver tips</button>
+        <button className="bg-gray-400 text-white px-4 py-2 rounded mt-4" onClick={() => setStep("menu")}>Volver al menú</button>
       </div>
     );
   }
 
-  if (step === 5) {
+  if (step === "tips") {
     return (
       <div className="p-4">
         <h2 className="text-lg font-semibold mb-4">🌱 Tips y Reflexión</h2>
@@ -167,6 +179,7 @@ export default function StyleSelector() {
           <li>Infórmate sobre el impacto del fast fashion en el medio ambiente.</li>
           <li>Valora la ropa como una forma de expresión y no como algo desechable.</li>
         </ul>
+        <button className="bg-gray-400 text-white px-4 py-2 rounded mt-4" onClick={() => setStep("menu")}>Volver al menú</button>
       </div>
     );
   }
