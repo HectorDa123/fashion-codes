@@ -98,20 +98,15 @@ export default function StyleSelector() {
     return (
       <div className="p-4">
         <h2 className="text-lg font-semibold mb-2">🎨 Elige tus estilos favoritos (máx 5):</h2>
-        <div className="mb-4">
-          <ul className="text-sm text-gray-800 list-disc pl-6 space-y-2">
-            <li><strong>Vintage:</strong> Jeans rectos, camisas retro, chaquetas de los 80s.</li>
-            <li><strong>Streetwear:</strong> Hoodies anchos, zapatillas deportivas, pantalones cargo.</li>
-            <li><strong>Emo:</strong> Camisetas negras con estampados, pantalones ajustados, accesorios con púas.</li>
-            <li><strong>Oversize:</strong> Polos largos, blazers grandes, joggers holgados.</li>
-            <li><strong>Y2K:</strong> Crop tops, gafas de colores, pantalones con brillo o metálicos.</li>
-          </ul>
-        </div>
         <div className="flex flex-wrap gap-2 justify-center mb-4">
           {styles.map((style) => (
             <button
               key={style}
-              className={`px-3 py-1 rounded-full border shadow-sm transition ${selectedStyles.includes(style) ? "bg-green-500 text-white" : "bg-gray-100 hover:bg-green-100"}`}
+              className={`px-3 py-1 rounded-full border shadow-sm transition ${
+                selectedStyles.includes(style)
+                  ? "bg-green-500 text-white"
+                  : "bg-gray-100 hover:bg-green-100"
+              }`}
               onClick={() => toggleStyle(style)}
             >
               {style}
@@ -119,6 +114,59 @@ export default function StyleSelector() {
           ))}
         </div>
         <button className="bg-blue-500 text-white px-4 py-2 rounded" onClick={() => setStep(3)}>Siguiente</button>
+      </div>
+    );
+  }
+
+  if (step === 3) {
+    return (
+      <div className="p-4">
+        <h2 className="text-lg font-semibold mb-4">👚 Tu armario</h2>
+        <input type="file" accept="image/*" onChange={handleAddClothing} className="mb-4" />
+        <div className="grid grid-cols-2 gap-4">
+          {wardrobe.map((item) => (
+            <div key={item.id} className="border rounded p-2 text-center">
+              <img src={item.image} alt="ropa" className="w-full h-40 object-cover rounded mb-2" />
+              <p>Usos: {item.uses}</p>
+              <button className="bg-green-500 text-white px-3 py-1 mt-2 rounded" onClick={() => incrementUses(item.id)}>Sumar uso</button>
+            </div>
+          ))}
+        </div>
+        <button className="bg-blue-500 text-white px-4 py-2 rounded mt-4" onClick={() => setStep(4)}>Ir a perfil</button>
+      </div>
+    );
+  }
+
+  if (step === 4) {
+    return (
+      <div className="p-4">
+        <h2 className="text-lg font-semibold mb-4">👤 Perfil</h2>
+        <ul className="text-gray-800 space-y-1">
+          <li><strong>Nombre:</strong> {formData.nombre}</li>
+          <li><strong>Edad:</strong> {formData.edad}</li>
+          <li><strong>Género:</strong> {formData.genero}</li>
+          <li><strong>Ubicación:</strong> {formData.ubicacion}</li>
+          <li><strong>Altura:</strong> {formData.altura} cm</li>
+          <li><strong>Estilos favoritos:</strong> {selectedStyles.join(", ")}</li>
+          <li><strong>Prendas registradas:</strong> {wardrobe.length}</li>
+        </ul>
+        <button className="bg-blue-500 text-white px-4 py-2 rounded mt-4" onClick={() => setStep(5)}>Ver tips</button>
+      </div>
+    );
+  }
+
+  if (step === 5) {
+    return (
+      <div className="p-4">
+        <h2 className="text-lg font-semibold mb-4">🌱 Tips y Reflexión</h2>
+        <ul className="list-disc space-y-2 pl-5 text-gray-700">
+          <li>Reutiliza y repara tu ropa antes de desecharla.</li>
+          <li>Compra en tiendas de segunda mano o intercambia prendas.</li>
+          <li>Evita las compras impulsivas, planifica tus outfits.</li>
+          <li>Lava tu ropa con agua fría y cuídala para alargar su vida útil.</li>
+          <li>Infórmate sobre el impacto del fast fashion en el medio ambiente.</li>
+          <li>Valora la ropa como una forma de expresión y no como algo desechable.</li>
+        </ul>
       </div>
     );
   }
