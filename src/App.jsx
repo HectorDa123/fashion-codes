@@ -83,16 +83,19 @@ export default function StyleSelector() {
 
   const renderWardrobe = () => (
     <div className="p-4">
-      <h2 className="text-lg font-semibold mb-4">👚 Tu armario</h2>
+      <h2 className="text-lg font-bold text-green-600 mb-4">👚 Tu armario</h2>
       <input
         type="file"
         accept="image/*"
         onChange={handleAddClothing}
-        className="mb-4"
+        className="mb-4 border border-gray-300 p-2 rounded-lg"
       />
       <div className="grid grid-cols-2 gap-4">
         {wardrobe.map((item) => (
-          <div key={item.id} className="border rounded p-2 text-center">
+          <div
+            key={item.id}
+            className="bg-white border rounded-lg shadow-md p-4 text-center"
+          >
             <img
               src={item.image}
               alt="ropa"
@@ -113,8 +116,8 @@ export default function StyleSelector() {
 
   const renderProfile = () => (
     <div className="p-4">
-      <h2 className="text-lg font-semibold mb-4">👤 Tu perfil</h2>
-      <ul className="text-gray-800 space-y-1">
+      <h2 className="text-lg font-bold text-purple-600 mb-4">👤 Tu perfil</h2>
+      <ul className="text-gray-800 space-y-2">
         <li>
           <strong>Nombre:</strong> {formData.nombre}
         </li>
@@ -134,9 +137,6 @@ export default function StyleSelector() {
           <strong>Estilos favoritos:</strong> {selectedStyles.join(", ")}
         </li>
         <li>
-          <strong>Prendas registradas:</strong> {wardrobe.length}
-        </li>
-        <li>
           <strong>Puntos:</strong> {points}
         </li>
       </ul>
@@ -145,7 +145,7 @@ export default function StyleSelector() {
 
   const renderTips = () => (
     <div className="p-4">
-      <h2 className="text-lg font-semibold mb-4">🌱 Tips y Reflexión</h2>
+      <h2 className="text-lg font-bold text-blue-600 mb-4">🌱 Tips ecológicos</h2>
       <ul className="list-disc space-y-2 pl-5 text-gray-700">
         <li>Reutiliza y repara tu ropa antes de desecharla.</li>
         <li>Compra en tiendas de segunda mano o intercambia prendas.</li>
@@ -155,7 +155,7 @@ export default function StyleSelector() {
         <li>Valora la ropa como una forma de expresión y no como algo desechable.</li>
       </ul>
       <button
-        className="bg-green-500 text-white px-4 py-2 rounded mt-4"
+        className="bg-blue-500 text-white px-4 py-2 rounded mt-4"
         onClick={() => setPoints(points + 20)} // Recompensa por leer los tips
       >
         Marcar como leído (+20 puntos)
@@ -164,11 +164,11 @@ export default function StyleSelector() {
   );
 
   return (
-    <div>
-      <nav className="flex justify-around bg-gray-200 p-4">
+    <div className="min-h-screen bg-gray-100">
+      <nav className="flex justify-around bg-green-500 text-white p-4 shadow-md">
         <button
           className={`px-4 py-2 rounded ${
-            activeTab === "wardrobe" ? "bg-green-500 text-white" : "bg-gray-100"
+            activeTab === "wardrobe" ? "bg-green-700" : ""
           }`}
           onClick={() => setActiveTab("wardrobe")}
         >
@@ -176,7 +176,7 @@ export default function StyleSelector() {
         </button>
         <button
           className={`px-4 py-2 rounded ${
-            activeTab === "profile" ? "bg-green-500 text-white" : "bg-gray-100"
+            activeTab === "profile" ? "bg-green-700" : ""
           }`}
           onClick={() => setActiveTab("profile")}
         >
@@ -184,16 +184,18 @@ export default function StyleSelector() {
         </button>
         <button
           className={`px-4 py-2 rounded ${
-            activeTab === "tips" ? "bg-green-500 text-white" : "bg-gray-100"
+            activeTab === "tips" ? "bg-green-700" : ""
           }`}
           onClick={() => setActiveTab("tips")}
         >
           Recomendaciones
         </button>
       </nav>
-      {activeTab === "wardrobe" && renderWardrobe()}
-      {activeTab === "profile" && renderProfile()}
-      {activeTab === "tips" && renderTips()}
+      <div className="max-w-4xl mx-auto mt-8">
+        {activeTab === "wardrobe" && renderWardrobe()}
+        {activeTab === "profile" && renderProfile()}
+        {activeTab === "tips" && renderTips()}
+      </div>
     </div>
   );
 }
